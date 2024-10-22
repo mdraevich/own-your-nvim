@@ -1,6 +1,7 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+        enable_git_status = true,
         window = {
             mappings = {
                 ["<space>"] = { "toggle_node", nowait = true },

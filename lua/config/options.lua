@@ -23,3 +23,7 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':bp<bar>sp<bar>bn<bar>bd<CR>', { nore
 vim.api.nvim_set_keymap('n', '<leader>]', ':bn<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>[', ':bp<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "yaml",
+	command = "setlocal shiftwidth=2 tabstop=2"
+})

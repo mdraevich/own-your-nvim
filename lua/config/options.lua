@@ -27,16 +27,25 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "yaml",
 	command = "setlocal shiftwidth=2 tabstop=2"
 })
+
+-- go formatting
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = {"*.tf", "*.tfvars"},
-    callback = function()
-        -- Save the current cursor position
-        local cursor_pos = vim.api.nvim_win_get_cursor(0)
-        
-        -- Format using terraform
-        vim.cmd("%!terraform fmt -")
-        
-        -- Restore the cursor position
-        vim.api.nvim_win_set_cursor(0, cursor_pos)
-    end,
+  pattern = "*.go",
+  callback = function()
+    require('go.format').gofmt()
+  end,
+  group = format_sync_grp,
 })
+
+-- python formatting
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.softtabstop = 4
+    vim.bo.expandtab = true
+  end,
+})
+

@@ -14,28 +14,29 @@ vim.opt.scrolloff = 999
 vim.opt.virtualedit = "block"
 vim.opt.inccommand = "split"
 
+vim.opt.fileignorecase = false
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
-vim.api.nvim_set_keymap('n', '<leader>q', ':bp<bar>sp<bar>bn<bar>bd<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>]', ':bn<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>[', ':bp<CR>', { noremap = true, silent = true })
+-- Previous buffer
+vim.api.nvim_set_keymap('n', '<leader>bp', ':b#<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bc', ':bdelete<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>fb", ":Telescope buffers<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>fs", ":Telescope git_status<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotree reveal<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<leader>dt", ":diffthis<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>do", ":diffoff!<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "yaml",
 	command = "setlocal shiftwidth=2 tabstop=2"
-})
-
--- go formatting
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    require('go.format').gofmt()
-  end,
-  group = format_sync_grp,
 })
 
 -- python formatting

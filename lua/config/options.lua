@@ -22,31 +22,41 @@ vim.g.mapleader = " "
 
 -- Previous buffer
 vim.api.nvim_set_keymap('n', '<leader>bp', ':b#<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>bc', ':bdelete<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bc', ':bprevious | bdelete #<CR>', { noremap = true, silent = true })
 
+-- telescope commands
 vim.api.nvim_set_keymap("n", "<leader>fb", ":Telescope buffers<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>fs", ":Telescope git_status<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotree reveal<CR>", { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>nf', function()
+  local filename = vim.fn.expand('%:t')
+  vim.fn.setreg('*', filename)  -- or '+' depending on system
+end, { desc = 'Copy filename to system clipboard' })
 
+-- diff commands
+vim.api.nvim_set_keymap("n", "<leader>dg", ":DiffviewOpen<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>dt", ":diffthis<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>do", ":diffoff!<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "yaml",
-	command = "setlocal shiftwidth=2 tabstop=2"
-})
+-- tabs
+vim.api.nvim_set_keymap("n", "<leader>tn", ":tabNext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tp", ":tabnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true, silent = true })
 
--- python formatting
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
+-- linter
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
-    vim.bo.tabstop = 4
-    vim.bo.shiftwidth = 4
-    vim.bo.softtabstop = 4
-    vim.bo.expandtab = true
+    require("lint").try_lint()
   end,
 })
 
+-- formatter
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})

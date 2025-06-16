@@ -7,6 +7,7 @@ return {
 				lua = { "stylua" },
 				python = { "black" },
 				terraform = { "terraform_fmt" },
+				go = { "gofmt" },
 			},
 		})
 	end,

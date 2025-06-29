@@ -19,50 +19,12 @@ vim.opt.ignorecase = true
 vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
-
--- Previous buffer
-vim.api.nvim_set_keymap("n", "<leader>bp", ":b#<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>bc", ":bprevious | bdelete #<CR>", { noremap = true, silent = true })
-
--- telescope commands
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fw",
-	":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>",
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fW",
-	":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>",
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<leader>fb", ":Telescope buffers<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>fs", ":Telescope git_status<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fg",
-	":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-	{ noremap = true, silent = true }
-)
-
-vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotree reveal<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>nf", function()
-	local filename = vim.fn.expand("%:t")
-	vim.fn.setreg("*", filename) -- or '+' depending on system
-end, { desc = "Copy filename to system clipboard" })
+vim.g.maplocalleader = "\\"
 
 -- diff commands
 vim.api.nvim_set_keymap("n", "<leader>dg", ":DiffviewOpen<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>dt", ":diffthis<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>do", ":diffoff!<CR>", { noremap = true, silent = true })
-
--- tabs
-vim.api.nvim_set_keymap("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>th", ":tabNext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>tl", ":tabnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true, silent = true })
 
 -- linter
 vim.api.nvim_set_keymap("n", "<leader>ld", ":lua vim.diagnostic.hide()<CR>", { noremap = true, silent = true })

@@ -10,6 +10,7 @@ return {
 		},
 		"nvim-lua/plenary.nvim",
 		"ThePrimeagen/git-worktree.nvim",
+        "rcarriga/nvim-notify",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -22,5 +23,6 @@ return {
 		-- then load the extension
 		telescope.load_extension("live_grep_args")
 		telescope.load_extension("git_worktree")
+		telescope.load_extension("notify")
 	end,
 }

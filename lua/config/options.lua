@@ -27,15 +27,15 @@ vim.api.nvim_set_keymap("n", "<leader>dt", ":diffthis<CR>", { noremap = true, si
 vim.api.nvim_set_keymap("n", "<leader>do", ":diffoff!<CR>", { noremap = true, silent = true })
 
 -- linter
-vim.api.nvim_set_keymap("n", "<leader>ld", ":lua vim.diagnostic.hide()<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>le", function()
-	require("lint").try_lint()
-end, { desc = "Lint current buffer" })
+-- vim.api.nvim_set_keymap("n", "<leader>ld", ":lua vim.diagnostic.hide()<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>le", function()
+-- 	require("lint").try_lint()
+-- end, { desc = "Lint current buffer" })
 
 -- formatter
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = "*",
+-- 	callback = function(args)
+-- 		require("conform").format({ bufnr = args.buf })
+-- 	end,
+-- })

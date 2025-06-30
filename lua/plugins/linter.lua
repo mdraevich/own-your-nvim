@@ -12,4 +12,5 @@ return {
 			bash = { "shellcheck" }, -- alternative for explicit bash filetypes
 		}
 	end,
+    enabled = false
 }
